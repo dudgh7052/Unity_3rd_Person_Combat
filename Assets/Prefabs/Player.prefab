@@ -2531,9 +2531,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4400423882326268305}
+  - component: {fileID: 841858874185683417}
+  - component: {fileID: 1262434134863317362}
   - component: {fileID: 254858731782798745}
   - component: {fileID: 4989744944091792691}
-  - component: {fileID: 1262434134863317362}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2561,31 +2562,32 @@ Transform:
   - {fileID: 7969836374372008303}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &254858731782798745
-MonoBehaviour:
+--- !u!143 &841858874185683417
+CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7722430832545200006}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 953b1bb9f97ce144a84a6d774a813942, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <InputReader>k__BackingField: {fileID: 4989744944091792691}
---- !u!114 &4989744944091792691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7722430832545200006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a57be865011275448ca0391948c9d37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 3
+  m_Height: 1.75
+  m_Radius: 0.2
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.02
+  m_MinMoveDistance: 0
+  m_Center: {x: 0, y: 0.875, z: 0}
 --- !u!95 &1262434134863317362
 Animator:
   serializedVersion: 5
@@ -2607,6 +2609,33 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &254858731782798745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7722430832545200006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953b1bb9f97ce144a84a6d774a813942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <InputReader>k__BackingField: {fileID: 4989744944091792691}
+  <Controller>k__BackingField: {fileID: 841858874185683417}
+  <FreeLookMovementSpeed>k__BackingField: 6
+--- !u!114 &4989744944091792691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7722430832545200006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a57be865011275448ca0391948c9d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7816416316003766502
 GameObject:
   m_ObjectHideFlags: 0
