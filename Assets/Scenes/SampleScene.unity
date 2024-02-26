@@ -1016,7 +1016,7 @@ MonoBehaviour:
   m_XAxis:
     Value: 0
     m_SpeedMode: 0
-    m_MaxSpeed: 300
+    m_MaxSpeed: 250
     m_AccelTime: 0.1
     m_DecelTime: 0.1
     m_InputAxisName: 
@@ -1447,16 +1447,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7722430832545200006, guid: c0e5f755b9f341948998a33754fdafbe,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8472161191960506550, guid: c0e5f755b9f341948998a33754fdafbe,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
