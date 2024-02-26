@@ -30,14 +30,14 @@ public class InputReader : MonoBehaviour, Controls.IPlayerActions
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (!context.performed) { return; }
+        if (!context.performed) return;
 
         m_jumpEvent?.Invoke();
     }
 
     public void OnDodge(InputAction.CallbackContext context)
     {
-        if (!context.performed) { return; }
+        if (!context.performed) return;
 
         m_dodgeEvent?.Invoke();
     }
