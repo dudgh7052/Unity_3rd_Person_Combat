@@ -8,8 +8,10 @@ public class InputReader : MonoBehaviour, Controls.IPlayerActions
 {
     public Vector2 MovementValue { get; private set; }
 
-    public event Action m_jumpEvent;
-    public event Action m_dodgeEvent;
+    public event Action JumpEvent;
+    public event Action DodgeEvent;
+    public event Action TargetEvent;
+    public event Action CancelEvent;
 
     private Controls m_controls;
 
@@ -30,16 +32,16 @@ public class InputReader : MonoBehaviour, Controls.IPlayerActions
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (!context.performed) return;
+        if (!context.performed) return; // 버튼이 눌렸는지 체크
 
-        m_jumpEvent?.Invoke();
+        JumpEvent?.Invoke();
     }
 
     public void OnDodge(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
 
-        m_dodgeEvent?.Invoke();
+        DodgeEvent?.Invoke();
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -50,5 +52,19 @@ public class InputReader : MonoBehaviour, Controls.IPlayerActions
     public void OnLook(InputAction.CallbackContext context)
     {
         
+    }
+
+    public void OnTarget(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+
+        TargetEvent?.Invoke();
+    }
+
+    public void OnCancel(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+
+        CancelEvent?.Invoke();
     }
 }
