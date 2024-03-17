@@ -4,16 +4,23 @@ using UnityEngine;
 
 public class PlayerTargetingState : PlayerBaseState
 {
+    private readonly int TargetingBlendTreeHash = Animator.StringToHash("TargetingBlendTree");
+
     public PlayerTargetingState(PlayerStateMachine argStateMahcine) : base(argStateMahcine) { }
 
     public override void Enter()
     {
         m_stateMachine.InputReader.CancelEvent += OnCancel;
+
+        m_stateMachine.Animator.Play(TargetingBlendTreeHash); // BlendTree πŸ≤„¡÷±‚
     }
 
     public override void Tick(float argDeltaTime)
     {
-        Debug.Log(m_stateMachine.Targeter.CurrentTarget.name);
+        if (m_stateMachine.Targeter.CurrentTarget == null)
+        {
+            m_stateMachine.SwitchState(new PlayerFreeLookState(m_stateMachine));
+        }
     }
 
     public override void Exit()
