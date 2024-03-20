@@ -21,6 +21,12 @@ public class PlayerTargetingState : PlayerBaseState
         {
             m_stateMachine.SwitchState(new PlayerFreeLookState(m_stateMachine));
         }
+
+        Vector3 _movement = CalculateMovement();
+
+        Move(_movement * m_stateMachine.TargetingMovementSpeed, argDeltaTime);
+
+        FaceTarget();
     }
 
     public override void Exit()
@@ -33,5 +39,16 @@ public class PlayerTargetingState : PlayerBaseState
         m_stateMachine.Targeter.Cancel();
 
         m_stateMachine.SwitchState(new PlayerFreeLookState(m_stateMachine));
+    }
+
+    private Vector3 CalculateMovement()
+    {
+        Vector3 _movement = new Vector3();
+
+        // 현재 transform의 right와 forward에 각각 방향 입력을 곱해주기
+        _movement += m_stateMachine.transform.right * m_stateMachine.InputReader.MovementValue.x;
+        _movement += m_stateMachine.transform.forward * m_stateMachine.InputReader.MovementValue.y;
+
+        return _movement;
     }
 }
