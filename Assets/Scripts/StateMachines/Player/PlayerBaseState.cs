@@ -10,4 +10,9 @@ public abstract class PlayerBaseState : State
     {
         this.m_stateMachine = argStateMahcine;
     }
+
+    protected void Move(Vector3 argMovement, float argDeltaTime)
+    {
+        m_stateMachine.Controller.Move((argMovement + m_stateMachine.ForeceReceiver.Movement) * argDeltaTime);
+    }
 }
