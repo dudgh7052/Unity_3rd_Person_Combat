@@ -1,10 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerTargetingState : PlayerBaseState
 {
     private readonly int TargetingBlendTreeHash = Animator.StringToHash("TargetingBlendTree");
+    private readonly int TargetingForwardHash = Animator.StringToHash("TargetingForward");
+    private readonly int TargetingRightHash = Animator.StringToHash("TargetingRight");
+
+    private const float AnimatorDampTime = 0.1f;
 
     public PlayerTargetingState(PlayerStateMachine argStateMahcine) : base(argStateMahcine) { }
 
@@ -26,6 +32,8 @@ public class PlayerTargetingState : PlayerBaseState
 
         Move(_movement * m_stateMachine.TargetingMovementSpeed, argDeltaTime);
 
+        UpdateAnimator(argDeltaTime);
+
         FaceTarget();
     }
 
@@ -34,7 +42,7 @@ public class PlayerTargetingState : PlayerBaseState
         m_stateMachine.InputReader.CancelEvent -= OnCancel;
     }
 
-    private void OnCancel() 
+    private void OnCancel()
     {
         m_stateMachine.Targeter.Cancel();
 
@@ -50,5 +58,28 @@ public class PlayerTargetingState : PlayerBaseState
         _movement += m_stateMachine.transform.forward * m_stateMachine.InputReader.MovementValue.y;
 
         return _movement;
+    }
+
+    private void UpdateAnimator(float argDeltaTime)
+    {
+        if (m_stateMachine.InputReader.MovementValue.y == 0)
+        {
+            m_stateMachine.Animator.SetFloat(TargetingForwardHash, 0, AnimatorDampTime, argDeltaTime);
+        }
+        else
+        {
+            float _value = m_stateMachine.InputReader.MovementValue.y > 0.0f ? 1f : -1f;
+            m_stateMachine.Animator.SetFloat(TargetingForwardHash, _value, AnimatorDampTime, argDeltaTime);
+        }
+
+        if (m_stateMachine.InputReader.MovementValue.x == 0)
+        {
+            m_stateMachine.Animator.SetFloat(TargetingRightHash, 0, AnimatorDampTime, argDeltaTime);
+        }
+        else
+        {
+            float _value = m_stateMachine.InputReader.MovementValue.x > 0.0f ? 1f : -1f;
+            m_stateMachine.Animator.SetFloat(TargetingRightHash, _value, AnimatorDampTime, argDeltaTime);
+        }
     }
 }
