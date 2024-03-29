@@ -10,6 +10,8 @@ public class Targeter : MonoBehaviour
     /// </summary>
     [SerializeField] private CinemachineTargetGroup m_cineTargetGroup;
 
+    private Camera m_mainCamera;
+
     /// <summary>
     /// 타겟 리스트
     /// </summary>
@@ -19,6 +21,11 @@ public class Targeter : MonoBehaviour
     /// 현재 타겟
     /// </summary>
     public Target CurrentTarget { get; private set; }
+
+    void Start()
+    {
+        m_mainCamera = Camera.main;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -44,10 +51,31 @@ public class Targeter : MonoBehaviour
     {
         if (m_targets.Count == 0) return false;
 
-        CurrentTarget = m_targets[0];
+        Target _closestTarget = null; // 제일 가까운 타겟 변수
+        float _closestTargetDistance = Mathf.Infinity; // 제일 가까운 타겟의 거리
 
-        // 타겟 그룹의 멤버 추가
-        m_cineTargetGroup.AddMember(CurrentTarget.transform, 1f, 2f);
+        foreach (Target target in m_targets)
+        {
+            // target이 카메라 Viewport 밖에 있는지 체크 x, y가 0보다 작을 경우와 1보다 클 경우 Viewport 밖 나타냄
+            Vector2 _viewPos = m_mainCamera.WorldToViewportPoint(target.transform.position);
+
+            if (_viewPos.x < 0 || _viewPos.x > 1 || _viewPos.y < 0 || _viewPos.y > 1) continue;
+
+            // camera의 센터(0.5f, 0.5f)에서의 거리 구하기
+            Vector2 _toCenter = _viewPos - new Vector2(0.5f, 0.5f);
+
+            // 제일 가까운지 체크
+            if(_toCenter.sqrMagnitude < _closestTargetDistance)
+            {
+                _closestTarget = target;
+                _closestTargetDistance = _toCenter.sqrMagnitude;
+            }
+        }
+
+        if (_closestTarget == null) return false;
+
+        CurrentTarget = _closestTarget;
+        m_cineTargetGroup.AddMember(CurrentTarget.transform, 1f, 2f); // 타겟 그룹의 멤버 추가
 
         return true;
     }
