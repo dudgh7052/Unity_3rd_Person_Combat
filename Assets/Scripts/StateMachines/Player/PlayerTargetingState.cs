@@ -23,6 +23,11 @@ public class PlayerTargetingState : PlayerBaseState
 
     public override void Tick(float argDeltaTime)
     {
+        if (m_stateMachine.InputReader.IsAttacking)
+        {
+            m_stateMachine.SwitchState(new PlayerAttackingState(m_stateMachine));
+            return;
+        }
         if (m_stateMachine.Targeter.CurrentTarget == null)
         {
             m_stateMachine.SwitchState(new PlayerFreeLookState(m_stateMachine));
